@@ -1,0 +1,56 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servicePlanConfig": {
+            "type": "object"
+        },
+        "nestedDeploymentName": {
+            "type": "object"
+        },
+        "appLocation": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "deploymentApiVersion": "2016-09-01"
+    },
+    "resources": [
+        {
+            "name": "[parameters('nestedDeploymentName').webfarm]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/arm/develop/MatterCenter/resources/webFarm.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "servicePLanConfig": {"value": "[parameters('servicePlanConfig')]"},
+                    "appLocation": {"value": "[parameters('appLocation')]"}                
+                }
+            }
+        },
+        {
+            "name": "[parameters('nestedDeploymentName').webapp]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webfarm)]"
+            ],
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/arm/develop/MatterCenter/resources/webApp.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "servicePLanConfig": {"value": "[parameters('servicePlanConfig')]"},
+                    "appLocation": {"value": "[parameters('appLocation')]"}
+                }
+            }
+        }  
+    ],
+    "outputs": {}
+}
