@@ -1,0 +1,32 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servicePlanConfig": {
+            "type": "object"
+        },
+        "appLocation": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "webAppApiVersion": "2016-08-01",
+        "webAppName": "[concat(parameters('servicePlanConfig').prefix,'webapp')]"
+    },
+    "resources": [
+        {
+            "name": "[variables('webAppName')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "[variables('webAppApiVersion')]",
+            "location": "[parameters('appLocation')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+              "name": "[variables('webAppName')]",
+              "serverFarmId": "[concat(parameters('servicePlanConfig').prefix,'ServicePLan')]"
+            }
+        }
+    ],
+    "outputs": { }
+}
