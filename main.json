@@ -23,7 +23,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/arm/develop/MatterCenter/resources/webFarm.json",
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webApp.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -42,7 +42,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/arm/develop/MatterCenter/resources/webApp.json",
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webApp.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
