@@ -13,7 +13,7 @@
         }
     },
     "variables": {
-        "deploymentApiVersion": "2016-09-01"
+        "deploymentApiVersion": "2017-05-10"
     },
     "resources": [
         {
