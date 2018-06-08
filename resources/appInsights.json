@@ -26,9 +26,13 @@
         }
     ],
     "outputs": {
-        "webFarmName": {
+        "applicationInsightsName": {
             "type": "string",
-            "value": "[variables('webFarmName')]"
+            "value": "[variables('appInsightsName')]"
+        },
+        "applicationInsightsInstrumentationKey": {
+            "value": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2015-05-01').InstrumentationKey]",
+            "type": "string"
         }
     }
 }
