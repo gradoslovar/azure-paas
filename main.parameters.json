@@ -22,7 +22,7 @@
                 "webfarm": "webFarmDeploy",
                 "webapp": "webAppDeploy",
                 "appins": "appInsightsDeploy",
-                "redis": "redisDeployment"
+                "redis": "redisDeploy"
             }
         },
         "appLocation": {
