@@ -17,13 +17,13 @@
     },
     "resources": [
         {
-            "name": "[parameters('nestedDeploymentName').appins]",
+            "name": "[parameters('nestedDeploymentName').webfarm]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/appInsights.json",
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webFarm.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -52,7 +52,7 @@
             }
         },
         {
-            "name": "[parameters('nestedDeploymentName').webapp]",
+            "name": "[parameters('nestedDeploymentName').appins]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
             "dependsOn": [
@@ -61,7 +61,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webApp.json",
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/appInsights.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
