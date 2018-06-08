@@ -8,6 +8,15 @@
                 "skuname": "S1"
             }
         },
+        "redisConfig": {
+            "value": {
+                "prefix": "app365",
+                "skuname": "Basic",
+                "family": "C",
+                "capacity": 0,
+                "enablenonssl": false 
+            }
+        },
         "nestedDeploymentName": {
             "value": {
                 "webfarm": "webFarmDeploy",

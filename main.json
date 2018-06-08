@@ -5,6 +5,9 @@
         "servicePlanConfig": {
             "type": "object"
         },
+        "redisConfig": {
+            "type": "object"
+        },
         "nestedDeploymentName": {
             "type": "object"
         },
