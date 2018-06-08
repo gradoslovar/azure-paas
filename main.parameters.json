@@ -21,7 +21,8 @@
             "value": {
                 "webfarm": "webFarmDeploy",
                 "webapp": "webAppDeploy",
-                "appins": "appInsightsDeploy"
+                "appins": "appInsightsDeploy",
+                "redis": "redisDeployment"
             }
         },
         "appLocation": {

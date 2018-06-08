@@ -20,7 +20,7 @@
             "location": "[parameters('appLocation')]",
             "apiVersion": "[variables('redisCacheApiVersion')]",
             "properties": {
-                "enableNonSslPort": "[parameters('redisConfig').enablenossl]",
+                "enableNonSslPort": "[parameters('redisConfig').enablenonssl]",
                 "sku": {
                   "capacity": "[parameters('redisConfig').capacity]",
                   "family": "[parameters('redisConfig').family]",
