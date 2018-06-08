@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appLocation": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "appInsightsApiVersion": "2015-05-01",
+        "appInsightsName": "[concat(parameters('servicePlanConfig').prefix,'webapp')]"
+    },
+    "resources": [
+        {
+            "name": "[variables('appInsightsName')]",
+            "type": "Microsoft.Insights/components",
+            "location": "[parameters('appLocation')]",
+            "apiVersion": "[variables('appInsightsApiVersion')]",
+            "kind": "Web",
+            "properties": {
+                "applicationId": "[variables('appInsightsName')]"
+            }
+        }
+    ],
+    "outputs": {
+        "webFarmName": {
+            "type": "string",
+            "value": "[variables('webFarmName')]"
+        }
+    }
+}

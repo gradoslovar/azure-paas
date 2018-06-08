@@ -11,7 +11,8 @@
         "nestedDeploymentName": {
             "value": {
                 "webfarm": "webFarmDeploy",
-                "webapp": "webAppDeploy"
+                "webapp": "webAppDeploy",
+                "appins": "appInsightsDeploy"
             }
         },
         "appLocation": {
