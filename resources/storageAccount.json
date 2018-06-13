@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageConfig": {
+            "type": "object"
+        },
+        "storagePurpose": {
+            "type": "string"
+        },
+        "appLocation": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "storageApiVersion": "2017-10-01",
+        "storageAccountName": "[concat(parameters('storageConfig').prefix,parameters('storagePurpose'))]",
+        "endPoints": "[concat(';BlobEndpoint=https://',variables('storageAccountName'),'.blob.core.windows.net/;TableEndpoint=https://',variables('storageAccountName'),'.table.core.windows.net/;QueueEndpoint=https://',variables('storageAccountName'),'.queue.core.windows.net/;FileEndpoint=https://',variables('storageAccountName'),'.file.core.windows.net/')]"
+    },
+    "resources": [
+        {
+            "name": "[variables('storageApiVersion')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "[parameters('appLocation')]",
+            "apiVersion": "[variables('storageApiVersion')]",
+            "sku": {
+                "name": "[parameters('storageConfig').sku]"
+              },
+              "kind": "Storage"
+        }
+    ],
+    "outputs": {
+        "storageAccountName": {
+            "type": "string",
+            "value": "[variables('storageAccountName')]"
+        },
+        "storageAccountConnectionString": {
+            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(variables('storageAccountName'), '2016-01-01').keys[0].value,variables('endPoints'))]",
+            "type": "string"
+        }
+    }
+}
