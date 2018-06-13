@@ -19,7 +19,7 @@
     },
     "resources": [
         {
-            "name": "[variables('storageApiVersion')]",
+            "name": "[variables('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "location": "[parameters('appLocation')]",
             "apiVersion": "[variables('storageApiVersion')]",
