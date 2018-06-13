@@ -8,6 +8,12 @@
                 "skuname": "S1"
             }
         },
+        "storageConfig": {
+            "value": {
+                "prefix": "app365",
+                "sku": "Standard_LRS"
+            }
+        },
         "redisConfig": {
             "value": {
                 "prefix": "app365",
@@ -22,7 +28,8 @@
                 "webfarm": "webFarmDeploy",
                 "webapp": "webAppDeploy",
                 "appins": "appInsightsDeploy",
-                "redis": "redisDeploy"
+                "redis": "redisDeploy",
+                "storage": "storageDeploy"
             }
         },
         "appLocation": {

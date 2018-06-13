@@ -7,7 +7,10 @@
         },
         "appLocation": {
             "type": "string"
-        }
+        },
+        "dependencies": {
+            "type": "object"
+          }
     },
     "variables": {
         "webAppApiVersion": "2016-08-01",
@@ -24,8 +27,41 @@
             },
             "properties": {
               "name": "[variables('webAppName')]",
-              "serverFarmId": "[concat(parameters('servicePlanConfig').prefix,'ServicePLan')]"
-            }
+              "serverFarmId": "[concat(parameters('servicePlanConfig').prefix,'ServicePLan')]",
+              "siteConfig": {
+                "AlwaysOn": true,
+                "ftpsState": "FtpsOnly"
+              }
+            },
+            "resources": [
+                { // App Connection Strings
+                  "apiVersion": "2015-08-01",
+                  "type": "config",
+                  "name": "connectionstrings",
+                  "dependsOn": [
+                    "[variables('webAppName')]"
+                  ],
+                  "properties": {
+                    "DefaultConnection": {
+                      "value": "blah",
+                      "type": "SQLAzure"
+                    }
+                  }
+                },
+                { // App Settings
+                  "apiVersion": "2015-08-01",
+                  "type": "Microsoft.Web/sites/config",
+                  "name": "[concat(variables('webAppName'),'/appsettings')]",
+                  "dependsOn": [
+                    "[concat('Microsoft.Web/Sites/', variables('webAppName'))]"
+                  ],
+                  "properties": {
+                    "AppInsightsInstrumentationKey": "[parameters('dependencies').applicationInsight.instrumentationKey]",
+                    "StorageAccountConnectionString" :"[parameters('dependencies').storageAccounts[0].connectionString]",
+                    "WEBSITE_TIME_ZONE": "W. Europe Standard Time"
+                  }
+                }
+              ]
         }
     ],
     "outputs": { }
