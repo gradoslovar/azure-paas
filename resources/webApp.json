@@ -29,7 +29,8 @@
               "name": "[variables('webAppName')]",
               "serverFarmId": "[concat(parameters('servicePlanConfig').prefix,'ServicePLan')]",
               "siteConfig": {
-                "AlwaysOn": true
+                "AlwaysOn": true,
+                "ftpsState": "FtpsOnly"
               }
             },
             "resources": [
@@ -40,7 +41,12 @@
                   "dependsOn": [
                     "[variables('webAppName')]"
                   ],
-                  "properties": {}
+                  "properties": {
+                    "DefaultConnection": {
+                      "value": "blah",
+                      "type": "SQLAzure"
+                    }
+                  }
                 },
                 { // App Settings
                   "apiVersion": "2015-08-01",
@@ -50,11 +56,9 @@
                     "[concat('Microsoft.Web/Sites/', variables('webAppName'))]"
                   ],
                   "properties": {
-                    "WEBSITE_TIME_ZONE": "W. Europe Standard Time",
-                    
-                    "ApplicationInsights:InstrumentationKey": "[parameters('dependencies').applicationInsight.instrumentationKey]",
-
-                    "AppSettings:StorageAccountConnectionString" :"[parameters('dependencies').storageAccounts[0].connectionString]"
+                    "AppInsightsInstrumentationKey": "[parameters('dependencies').applicationInsight.instrumentationKey]",
+                    "StorageAccountConnectionString" :"[parameters('dependencies').storageAccounts[0].connectionString]",
+                    "WEBSITE_TIME_ZONE": "W. Europe Standard Time"
                   }
                 }
               ]
