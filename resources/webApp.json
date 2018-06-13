@@ -7,7 +7,10 @@
         },
         "appLocation": {
             "type": "string"
-        }
+        },
+        "dependencies": {
+            "type": "object"
+          }
     },
     "variables": {
         "webAppApiVersion": "2016-08-01",
@@ -24,8 +27,37 @@
             },
             "properties": {
               "name": "[variables('webAppName')]",
-              "serverFarmId": "[concat(parameters('servicePlanConfig').prefix,'ServicePLan')]"
-            }
+              "serverFarmId": "[concat(parameters('servicePlanConfig').prefix,'ServicePLan')]",
+              "siteConfig": {
+                "AlwaysOn": true
+              }
+            },
+            "resources": [
+                { // App Connection Strings
+                  "apiVersion": "2015-08-01",
+                  "type": "config",
+                  "name": "connectionstrings",
+                  "dependsOn": [
+                    "[variables('webAppName')]"
+                  ],
+                  "properties": {}
+                },
+                { // App Settings
+                  "apiVersion": "2015-08-01",
+                  "type": "Microsoft.Web/sites/config",
+                  "name": "[concat(variables('webAppName'),'/appsettings')]",
+                  "dependsOn": [
+                    "[concat('Microsoft.Web/Sites/', variables('webAppName'))]"
+                  ],
+                  "properties": {
+                    "WEBSITE_TIME_ZONE": "W. Europe Standard Time",
+                    
+                    "ApplicationInsights:InstrumentationKey": "[parameters('dependencies').applicationInsight.instrumentationKey]",
+
+                    "AppSettings:StorageAccountConnectionString" :"[parameters('dependencies').storageAccounts[0].connectionString]"
+                  }
+                }
+              ]
         }
     ],
     "outputs": { }
