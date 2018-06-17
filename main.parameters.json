@@ -29,7 +29,8 @@
                 "webapp": "webAppDeploy",
                 "appins": "appInsightsDeploy",
                 "redis": "redisDeploy",
-                "storage": "storageDeploy"
+                "storage": "storageDeploy",
+                "hostname": "customDomainDeploy"
             }
         },
         "appLocation": {

@@ -91,6 +91,22 @@
             }
         },
         {
+            "name": "[parameters('nestedDeploymentName').hostname]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/customDomain.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "customHostName": {"value": "deuxmoulins.com"},
+                    "appLocation": {"value": "[parameters('appLocation')]"}
+                }
+            }
+        },
+        {
             "name": "[parameters('nestedDeploymentName').appins]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",

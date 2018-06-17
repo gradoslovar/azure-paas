@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webAppName": {
+            "type": "string"
+        },
+        "customHostName": {
+            "type": "string",
+            "metadata": {
+                "description": "The FQDN custom hostname that you wish to add."
+            }
+        }
+    },
+    "variables": {
+        "customDomainApiVersion": "2016-03-01",
+        "customDomainName": "[concat(parameters('webAppName'),'/',parameters('customHostName'))]"
+    },
+    "resources": [
+        {
+            "name": "[variables('customDomainName')]",
+            "type": "Microsoft.Web/sites/hostnameBindings",
+            "location": "[parameters('appLocation')]",
+            "apiVersion": "[variables('customDomainApiVersion')]",
+            "properties": {
+                "domainId": null,
+                "hostNameType": "Verified",
+                "siteName": "parameters('websiteName')"
+            }
+        }
+    ],
+    "outputs": {}
+}
