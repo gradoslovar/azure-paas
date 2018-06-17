@@ -74,14 +74,10 @@
                     "dependencies": {
                         "value": {
                           "applicationInsight": {
-                            "resourceGroup": "[resourceGroup().name]",
-                            "name": "[reference('appInsightsDeploy').outputs.applicationInsightsName.value]",
                             "instrumentationKey": "[reference('appInsightsDeploy').outputs.applicationInsightsInstrumentationKey.value]"
                           },
                           "storageAccounts": [
                             { // 0 - Storage
-                              "resourceGroup": "[resourceGroup().name]",
-                              "name": "[reference('storageDeploy').outputs.storageAccountName.value]",
                               "connectionString": "[reference('storageDeploy').outputs.storageAccountConnectionString.value]"
                             }
                           ]
