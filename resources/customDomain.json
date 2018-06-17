@@ -23,7 +23,7 @@
             "apiVersion": "[variables('customDomainApiVersion')]",
             "properties": {
                 "domainId": null,
-                "hostNameType": "Verified"
+                "hostNameType": "Managed"
             }
         }
     ],
