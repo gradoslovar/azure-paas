@@ -94,6 +94,9 @@
             "name": "[parameters('nestedDeploymentName').hostname]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webapp)]"
+            ],
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
@@ -102,7 +105,13 @@
                 },
                 "parameters": {
                     "customHostName": {"value": "deuxmoulins.com"},
-                    "appLocation": {"value": "[parameters('appLocation')]"}
+                    "dependencies": {
+                        "value": {
+                          "webApp": {
+                            "name": "[reference('webAppDeploy').outputs.webAppName.value]"
+                          }
+                        }
+                      }
                 }
             }
         },
@@ -111,7 +120,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
             "dependsOn": [
-                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webfarm)]"
+                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webapp)]"
             ],
             "properties": {
                 "mode":"Incremental",
