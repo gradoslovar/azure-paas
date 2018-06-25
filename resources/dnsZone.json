@@ -2,17 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "zoneName": {
-            "type": "string"
+        "dnsConfig": {
+            "type": "object"
         }
     },
     "variables": {
-        "dnsZoneApiVersion": "2017-10-01"
+        "dnsZoneApiVersion": "2017-10-01",
+        "zoneName": "[parameters('dnsConfig').zone]"
     },
     "resources": [
         {
             "type": "Microsoft.Network/dnszones",
-            "name": "[parameters('zoneName')]",
+            "name": "[variables('zoneName')]",
             "apiVersion": "[variables('dnsZoneApiVersion')]",
             "location": "global",
             "properties": {}
@@ -21,19 +22,19 @@
     "outputs": {
         "ns1": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName')), '2017-10-01').nameServers[0]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', variables('zoneName')), '2017-10-01').nameServers[0]]"
         },
         "ns2": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName')), '2017-10-01').nameServers[1]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', variables('zoneName')), '2017-10-01').nameServers[1]]"
         },
         "ns3": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName')), '2017-10-01').nameServers[2]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', variables('zoneName')), '2017-10-01').nameServers[2]]"
         },
         "ns4": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName')), '2017-10-01').nameServers[3]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', variables('zoneName')), '2017-10-01').nameServers[3]]"
         }
     }
 }

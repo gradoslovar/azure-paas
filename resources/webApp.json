@@ -68,6 +68,10 @@
       "webAppName": {
         "type": "string",
         "value": "[variables('webAppName')]"
+      },
+      "webAppFQDN": {
+        "type": "string",
+        "value": "[reference(concat('Microsoft.Web/sites/', variables('webAppName')), '2016-08-01').defaultHostName]"
       }
     }
 }

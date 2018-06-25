@@ -23,6 +23,13 @@
                 "enablenonssl": false 
             }
         },
+        "dnsConfig": {
+            "value": {
+                "zone": "deuxmoulins.com",
+                "cname": "www",
+                "cnamevalue": "app365webapp.azurewebsites.net"
+            }
+        },
         "nestedDeploymentName": {
             "value": {
                 "webfarm": "webFarmDeploy",
@@ -30,7 +37,9 @@
                 "appins": "appInsightsDeploy",
                 "redis": "redisDeploy",
                 "storage": "storageDeploy",
-                "hostname": "customDomainDeploy"
+                "hostname": "customDomainDeploy",
+                "dnszone": "dnsZoneDeploy",
+                "dnscname": "dnnsCnameDeploy"
             }
         },
         "appLocation": {

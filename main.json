@@ -11,6 +11,9 @@
         "redisConfig": {
             "type": "object"
         },
+        "dnsConfig": {
+            "type": "object"
+        },
         "nestedDeploymentName": {
             "type": "object"
         },
@@ -29,7 +32,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/storageAccount.json",
+                    "uri": "https://grenier.blob.core.windows.net/resources/storageAccount.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -46,7 +49,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webFarm.json",
+                    "uri": "https://grenier.blob.core.windows.net/resources/webFarm.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -65,7 +68,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webApp.json",
+                    "uri": "https://grenier.blob.core.windows.net/resources/webApp.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -91,6 +94,38 @@
             }
         },
         {
+            "name": "[parameters('nestedDeploymentName').dnszone]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "resourceGroup": "DNS",
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "https://grenier.blob.core.windows.net/resources/dnsZone.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "dnsConfig": {"value": "[parameters('dnsConfig')]"}
+                }
+            }
+        },
+        {
+            "name": "[parameters('nestedDeploymentName').dnscname]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "resourceGroup": "DNS",
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "https://grenier.blob.core.windows.net/resources/dnsCname.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "dnsConfig": {"value": "[parameters('dnsConfig')]"}
+                }
+            }
+        },
+        {
             "name": "[parameters('nestedDeploymentName').hostname]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
@@ -100,11 +135,11 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/customDomain.json",
+                    "uri": "https://grenier.blob.core.windows.net/resources/customDomain.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "customHostName": {"value": "deuxmoulins.com"},
+                    "customHostName": {"value": "www.deuxmoulins.com"},
                     "dependencies": {
                         "value": {
                           "webApp": {
@@ -120,12 +155,12 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
             "dependsOn": [
-                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webapp)]"
+                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webfarm)]"
             ],
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/appInsights.json",
+                    "uri": "https://grenier.blob.core.windows.net/resources/appInsights.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -141,7 +176,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/redisCache.json",
+                    "uri": "https://grenier.blob.core.windows.net/resources/redisCache.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
