@@ -4,13 +4,16 @@
     "parameters": {
         "dnsConfig": {
             "type": "object"
-        }
+        },
+        "dependencies": {
+            "type": "object"
+          }
     },
     "variables": {
         "cnameApiVersion": "2017-09-01",
         "cname": "[parameters('dnsConfig').cname]",
         "zone": "[parameters('dnsConfig').zone]",
-        "cnameValue": "[parameters('dnsConfig').cnamevalue]"
+        "webAppFqdn": "[parameters('dependencies').webApp.fqdn]"
     },
     "resources": [
         {
@@ -20,7 +23,7 @@
             "properties": {
                 "TTL": 3600,
                 "CNAMERecord": {
-                    "cname": "[variables('cnameValue')]"
+                    "cname": "[variables('webAppFqdn')]"
                 }
             }
         }

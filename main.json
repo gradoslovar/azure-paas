@@ -121,7 +121,14 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "dnsConfig": {"value": "[parameters('dnsConfig')]"}
+                    "dnsConfig": {"value": "[parameters('dnsConfig')]"},
+                    "dependencies": {
+                        "value": {
+                          "webApp": {
+                            "fqdn": "[reference('webAppDeploy').outputs.webAppFQDN.value]"
+                          }
+                        }
+                    }
                 }
             }
         },
@@ -139,14 +146,14 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "customHostName": {"value": "www.deuxmoulins.com"},
+                    "customHostName": {"value": "[concat(parameters('dnsConfig').cname,'.',parameters('dnsConfig').zone)]"},
                     "dependencies": {
                         "value": {
                           "webApp": {
                             "name": "[reference('webAppDeploy').outputs.webAppName.value]"
                           }
                         }
-                      }
+                    }
                 }
             }
         },
