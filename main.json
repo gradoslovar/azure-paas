@@ -17,6 +17,9 @@
         "nestedDeploymentName": {
             "type": "object"
         },
+        "deploymentConfig": {
+            "type": "object"
+        },
         "appLocation": {
             "type": "string"
         }
@@ -32,7 +35,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/storageAccount.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/storageAccount.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -49,7 +52,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/webFarm.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/webFarm.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -68,7 +71,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/webApp.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/webApp.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -101,7 +104,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/dnsZone.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/dnsZone.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -117,7 +120,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/dnsCname.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/dnsCname.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -142,7 +145,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/customDomain.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/customDomain.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -167,7 +170,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/appInsights.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/appInsights.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -183,7 +186,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://grenier.blob.core.windows.net/resources/redisCache.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/redisCache.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
