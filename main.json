@@ -11,7 +11,13 @@
         "redisConfig": {
             "type": "object"
         },
+        "dnsConfig": {
+            "type": "object"
+        },
         "nestedDeploymentName": {
+            "type": "object"
+        },
+        "deploymentConfig": {
             "type": "object"
         },
         "appLocation": {
@@ -29,7 +35,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/storageAccount.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/storageAccount.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -46,7 +52,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webFarm.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/webFarm.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -65,7 +71,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/webApp.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/webApp.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -91,6 +97,70 @@
             }
         },
         {
+            "name": "[parameters('nestedDeploymentName').dnszone]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "resourceGroup": "DNS",
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/dnsZone.json',parameters('deploymentConfig').containerSasToken)]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "dnsConfig": {"value": "[parameters('dnsConfig')]"}
+                }
+            }
+        },
+        {
+            "name": "[parameters('nestedDeploymentName').dnscname]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "resourceGroup": "DNS",
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/dnsCname.json',parameters('deploymentConfig').containerSasToken)]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "dnsConfig": {"value": "[parameters('dnsConfig')]"},
+                    "dependencies": {
+                        "value": {
+                          "webApp": {
+                            "fqdn": "[reference('webAppDeploy').outputs.webAppFQDN.value]"
+                          }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "[parameters('nestedDeploymentName').hostname]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "[variables('deploymentApiVersion')]",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentName').webapp)]"
+            ],
+            "properties": {
+                "mode":"Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/customDomain.json',parameters('deploymentConfig').containerSasToken)]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "customHostName": {"value": "[concat(parameters('dnsConfig').cname,'.',parameters('dnsConfig').zone)]"},
+                    "dependencies": {
+                        "value": {
+                          "webApp": {
+                            "name": "[reference('webAppDeploy').outputs.webAppName.value]"
+                          }
+                        }
+                    }
+                }
+            }
+        },
+        {
             "name": "[parameters('nestedDeploymentName').appins]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('deploymentApiVersion')]",
@@ -100,7 +170,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/appInsights.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/appInsights.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -116,7 +186,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/gradoslovar/azure-paas/develop/resources/redisCache.json",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/redisCache.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
