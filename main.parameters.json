@@ -38,7 +38,7 @@
                 "storage": "storageDeploy",
                 "hostname": "customDomainDeploy",
                 "dnszone": "dnsZoneDeploy",
-                "dnscname": "dnnsCnameDeploy"
+                "dnscname": "dnsCnameDeploy"
             }
         },
         "deploymentConfig": {
