@@ -83,7 +83,7 @@
                             "instrumentationKey": "[reference('appInsightsDeploy').outputs.applicationInsightsInstrumentationKey.value]"
                           },
                           "storageAccounts": [
-                            { // 0 - Storage
+                            { 
                               "connectionString": "[reference('storageDeploy').outputs.storageAccountConnectionString.value]"
                             }
                           ]
