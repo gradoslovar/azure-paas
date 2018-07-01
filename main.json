@@ -35,7 +35,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri":"[concat(parameters('deploymentConfig').containerUri,'/resources/storageAccount.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri":"[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/storageAccount.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -52,7 +52,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/webFarm.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/webFarm.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -71,7 +71,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/webApp.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/webApp.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -100,7 +100,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/dnsZone.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/dnsZone.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -116,7 +116,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/dnsCname.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/dnsCname.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -141,7 +141,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/customDomain.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/customDomain.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -166,7 +166,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/appInsights.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/appInsights.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -182,7 +182,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/redisCache.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/',parameters('deploymentConfig').containerName,'/redisCache.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
