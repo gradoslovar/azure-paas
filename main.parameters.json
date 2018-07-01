@@ -43,6 +43,7 @@
         },
         "deploymentConfig": {
             "value": {
+                "containerName": "resources",
                 "containerUri": "azure.blob",
                 "containerSasToken": "token"
             }
