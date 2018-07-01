@@ -35,7 +35,7 @@
             "properties": {
                 "mode":"Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('deploymentConfig').containerUri,'/resources/storageAccount.json',parameters('deploymentConfig').containerSasToken)]",
+                    "uri":"[concat(parameters('deploymentConfig').containerUri,'/resources/storageAccount.json',parameters('deploymentConfig').containerSasToken)]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -83,7 +83,7 @@
                             "instrumentationKey": "[reference('appInsightsDeploy').outputs.applicationInsightsInstrumentationKey.value]"
                           },
                           "storageAccounts": [
-                            { // 0 - Storage
+                            { 
                               "connectionString": "[reference('storageDeploy').outputs.storageAccountConnectionString.value]"
                             }
                           ]
